@@ -89,8 +89,8 @@ const projects = [
         year: '2023',
         name: 'Portfolio v1',
         tools: ['JavaScript', 'React', 'Bootstrap'],
-        url: 'https://v1.aradhya.dev',
-        urlName: 'v1.aradhya.dev',
+        url: 'https://v1aradhya.vercel.app/',
+        urlName: 'v1aradhya.vercel.app',
     },
 ]
 
