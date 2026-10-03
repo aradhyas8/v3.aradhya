@@ -1,126 +1,130 @@
-import PortfolioSidebar from "@/components/PortfolioSidebar";
+import TopNav from "@/components/TopNav";
 
-const projects = [
+const projects: { year: string; name: string; status?: string; tools: string[]; links: { label: string; href: string }[] }[] = [
     {
         year: '2026',
         name: 'Hushfield',
-        tools: ['React Native', 'Expo', 'TypeScript', 'Audio DSP', 'CoreAudio', 'iOS', 'Android'],
-        url: 'https://apps.apple.com/app/id6802781534',
-        urlName: 'App Store',
+        tools: ['React Native', 'Expo', 'Audio DSP'],
+        links: [
+            { label: 'App Store', href: 'https://apps.apple.com/app/id6802781534' },
+            { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.inethan18.hushfield' },
+        ],
     },
     {
         year: '2026',
         name: 'QueryIO',
-        tools: ['MCP', 'PostgreSQL', 'TypeScript', 'SQL AST', 'Zod', 'Docker'],
-        url: '',
-        urlName: '',
+        status: 'In development',
+        tools: ['TypeScript', 'MCP', 'PostgreSQL'],
+        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/query-io' }],
     },
     {
         year: '2026',
         name: 'Paperrow',
-        tools: ['Next.js 16', 'PostgreSQL', 'Gemini', 'Google Sheets API', 'Cloudflare R2', 'Stripe'],
-        url: 'https://paperrow.com',
-        urlName: 'paperrow.com',
+        status: 'In development',
+        tools: ['Next.js', 'PostgreSQL', 'Gemini'],
+        links: [],
     },
     {
         year: '2025',
         name: 'PageMind',
-        tools: ['TypeScript', 'Next.js 14', 'Prisma', 'LangChain', 'Pinecone', 'tRPC', 'Zod'],
-        url: 'https://pagemind.app',
-        urlName: 'pagemind.app',
+        tools: ['Next.js', 'LangChain', 'Pinecone'],
+        links: [{ label: 'pagemind.app', href: 'https://pagemind.app' }],
     },
     {
         year: '2025',
         name: 'Serverus',
-        tools: ['TypeScript', 'Node.js', 'Express', 'AWS EC2', 'Redis', 'Docker', 'S3'],
-        url: 'https://github.com/aradhyas8/serverus',
-        urlName: 'GitHub',
+        tools: ['Node.js', 'Redis', 'AWS EC2'],
+        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/serverus' }],
     },
     {
         year: '2024',
         name: 'Flowrite',
-        tools: ['TypeScript', 'Node.js', 'Socket.io', 'MongoDB', 'React'],
-        url: 'https://github.com/aradhyas8/Flowrite',
-        urlName: 'GitHub',
+        tools: ['React', 'Socket.io', 'MongoDB'],
+        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/Flowrite' }],
     },
     {
         year: '2023',
         name: 'CSHub',
-        tools: ['Spring Boot', 'Java', 'PostgreSQL', 'REST APIs', 'Docker'],
-        url: 'https://www.cshub.tech',
-        urlName: 'cshub.tech',
+        tools: ['Spring Boot', 'PostgreSQL'],
+        links: [{ label: 'cshub.tech', href: 'https://www.cshub.tech' }],
     },
     {
         year: '2023',
         name: 'yuHacks',
-        tools: ['TypeScript', 'Next.js', 'GraphQL', 'Node.js', 'Tailwind CSS'],
-        url: 'https://yuhacks.ca',
-        urlName: 'yuhacks.ca',
+        tools: ['Next.js', 'GraphQL'],
+        links: [{ label: 'yuhacks.ca', href: 'https://yuhacks.ca' }],
     },
     {
         year: '2023',
         name: 'Project: Human City',
-        tools: ['React', 'TypeScript', 'Node.js', 'REST APIs', 'PostgreSQL'],
-        url: 'https://projecthumancity.com/',
-        urlName: 'projecthumancity.com',
+        tools: ['React', 'PostgreSQL'],
+        links: [{ label: 'projecthumancity.com', href: 'https://projecthumancity.com/' }],
     },
     {
         year: '2023',
         name: 'API Generator',
-        tools: ['JavaScript', 'Node.js', 'MongoDB', 'GraphQL', 'Express'],
-        url: 'https://github.com/aradhyas8/API-Generator',
-        urlName: 'GitHub',
+        tools: ['Node.js', 'GraphQL', 'MongoDB'],
+        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/API-Generator' }],
     },
     {
         year: '2022',
         name: 'For The Horses',
-        tools: ['JavaScript', 'React', 'Node.js', 'Express', 'MongoDB'],
-        url: 'https://github.com/aradhyas8/ForTheHorses',
-        urlName: 'GitHub',
+        tools: ['React', 'Express', 'MongoDB'],
+        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/ForTheHorses' }],
+    },
+    {
+        year: '2022',
+        name: 'Sorting Visualizer',
+        tools: ['JavaScript'],
+        links: [{ label: 'Live site', href: 'https://aradhyas8.github.io/Sorting-Algorithmn-Visualizer/' }],
     },
     {
         year: '2024',
         name: 'v2.aradhya',
-        tools: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-        url: 'https://aradhyapf.vercel.app/',
-        urlName: 'aradhyapf.vercel.app',
+        tools: ['Next.js', 'Framer Motion'],
+        links: [{ label: 'aradhyapf.vercel.app', href: 'https://aradhyapf.vercel.app/' }],
     },
     {
         year: '2023',
         name: 'Portfolio v1',
-        tools: ['JavaScript', 'React', 'Bootstrap'],
-        url: 'https://v1aradhya.vercel.app/',
-        urlName: 'v1aradhya.vercel.app',
+        tools: ['React', 'Bootstrap'],
+        links: [{ label: 'v1aradhya.vercel.app', href: 'https://v1aradhya.vercel.app/' }],
     },
 ]
 
 export default function ProjectArchivePage() {
   return (
-    <div className="portfolio portfolio-archive">
-      <a className="skip-link" href="#archive-main">Skip to projects</a>
-      <div className="portfolio-shell">
-        <PortfolioSidebar archive />
+    <>
+      <a className="skip-link" href="#main">Skip to projects</a>
+      <TopNav archive />
 
-        <main id="archive-main" className="portfolio-main">
-          <header className="archive-head">
-            <a className="text-link" href="/">← Selected work</a>
-            <h1>Project archive</h1>
-            <p>More of the products, tools, and experiments I’ve built.</p>
-          </header>
+      <main id="main" className="page">
+        <section className="archive">
+          <a className="text-link back-link" href="/">Home</a>
+          <h1 className="archive-title">Project archive</h1>
+          <p className="body-copy">More of the products, tools, and experiments I&rsquo;ve built.</p>
 
-          <div className="archive-list">
-            <div className="archive-labels" aria-hidden="true"><span>Year</span><span>Project</span><span>Tools</span><span>Link</span></div>
+          <ol className="archive-list">
             {[...projects].sort((a, b) => Number(b.year) - Number(a.year)).map((project) => (
-              <article className="archive-row" key={project.name}>
-                <time dateTime={project.year}>{project.year}</time>
+              <li className="archive-row" data-reveal="up" key={project.name}>
+                <span className="exp-time">{project.year}</span>
                 <h2>{project.name}</h2>
-                <p>{project.tools.slice(0, 4).join(" · ")}</p>
-                {project.url && <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={"Open " + project.name + ": " + project.urlName}>{project.urlName} ↗</a>}
-              </article>
+                <ul className="archive-tools" aria-label="Built with">
+                  {project.tools.map((t) => <li key={t}>{t}</li>)}
+                </ul>
+                <div className="archive-links">
+                  {project.status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{project.status}</span> : null}
+                  {project.links.map((l) => (
+                    <a key={l.href} className="text-link" href={l.href} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name}: ${l.label}`}>
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              </li>
             ))}
-          </div>
-        </main>
-      </div>
-    </div>
+          </ol>
+        </section>
+      </main>
+    </>
   );
 }

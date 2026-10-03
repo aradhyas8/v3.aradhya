@@ -1,18 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import RevealObserver from "@/components/RevealObserver";
 import "./globals.css";
 import "../tokens.css";
 import "./portfolio.css";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: "#f4efea",
+  themeColor: "#0b0b0a",
 };
-
-const themeScript = `try{var t=localStorage.getItem("theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){}`;
 
 const description = "Software engineer in Toronto. I build mobile products, document tools, and the services behind them.";
 
@@ -36,17 +34,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth">
       <head>
-        {/* Set theme before paint: stored choice, else light. */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&family=Geist:wght@300&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased">
-        <ThemeToggle />
         {children}
+        <RevealObserver />
       </body>
     </html>
   );
