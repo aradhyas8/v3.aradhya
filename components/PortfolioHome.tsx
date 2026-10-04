@@ -1,6 +1,5 @@
 import TopNav from "@/components/TopNav";
-
-type Link = { label: string; href: string };
+import WorkCards from "@/components/WorkCards";
 
 const resume = "/resume";
 const email = "aradhyas8@zohomailcloud.ca";
@@ -13,53 +12,6 @@ const roles = [
   { time: "2023", company: "Fibra", role: "Software Engineer", note: "Mobile Application Development" },
   { time: "2023", company: "theScore", role: "Quality Engineering Intern", note: "Sportsbook QA, Multi-State Launch & Release Testing" },
 ];
-
-const selected: { name: string; desc: string; links: Link[]; status?: string; cover: React.ReactNode }[] = [
-  {
-    name: "Hushfield",
-    desc: "Ambient audio for sleep, focus and quiet.",
-    links: [
-      { label: "iOS", href: "https://apps.apple.com/app/id6802781534" },
-      { label: "Android", href: "https://play.google.com/store/apps/details?id=com.inethan18.hushfield" },
-    ],
-    cover: <CoverImage src="/static/Images/hushfield/cover.svg" />,
-  },
-  {
-    name: "QueryIO",
-    desc: "Safe and simple database access for AI agents.",
-    links: [{ label: "Join the waitlist", href: "https://queryio1.vercel.app/" }],
-    status: "In development",
-    cover: <CoverImage src="/static/Images/queryio-cover.jpg" />,
-  },
-  {
-    name: "PageMind",
-    desc: "Read and understand research papers with AI.",
-    links: [{ label: "Try PageMind", href: "https://www.pagemind.app" }],
-    cover: <CoverImage src="/static/Images/pagemind-cover.jpg" />,
-  },
-  {
-    name: "Paperrow",
-    desc: "Spreadsheet extraction with Gemini.",
-    links: [],
-    status: "In development",
-    cover: <CoverImage src="/static/Images/paperrow-cover.jpg" />,
-  },
-];
-
-// Project covers: small pre-sized share images (1200x630 originals at 960x504, sharp at 2x).
-function CoverImage({ src }: { src: string }) {
-  // eslint-disable-next-line @next/next/no-img-element -- small pre-cropped JPEG, nothing to optimize
-  return <img src={src} alt="" loading="lazy" />;
-}
-
-function TextLink({ href, children }: { href: string; children: React.ReactNode }) {
-  const external = href.startsWith("http") || href.endsWith(".pdf");
-  return (
-    <a className="text-link" href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-      {children}
-    </a>
-  );
-}
 
 // Pill link with a sliding arrow: → for in-site, ↗ for external. Two copies so one can leave as the other arrives.
 export function ChipLink({ href, external = false, children }: { href: string; external?: boolean; children: React.ReactNode }) {
@@ -92,27 +44,6 @@ function ExperienceRow({ time, company, role, note }: (typeof roles)[number]) {
         <p className="exp-role">{role}</p>
       </div>
       <p className="exp-note">{note}</p>
-    </li>
-  );
-}
-
-// The name links to the project's main destination (if it has one) and its hit area covers the whole row;
-// secondary links sit above it (see .project-row in portfolio.css).
-function ProjectRow({ project }: { project: (typeof selected)[number] }) {
-  const [primary] = project.links;
-  return (
-    <li className="project-row" data-reveal="up">
-      <div className="project-body">
-        <h3 className="project-name">
-          {primary ? <a href={primary.href} target="_blank" rel="noopener noreferrer">{project.name}</a> : project.name}
-        </h3>
-        <p className="project-desc">{project.desc}</p>
-        <p className="project-links">
-          {project.links.map((l) => <TextLink key={l.href} href={l.href}>{l.label}</TextLink>)}
-          {project.status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{project.status}</span> : null}
-        </p>
-      </div>
-      <div className="project-cover" data-reveal="cover" aria-hidden="true">{project.cover}</div>
     </li>
   );
 }
@@ -191,10 +122,9 @@ export default function PortfolioHome() {
 
         <section className="section work" data-reveal="line" id="work" data-nav="work" aria-labelledby="work-title">
           <SectionHeader num="01" title="Selected Work" id="work" />
-          <ol className="project-list">
-            {selected.map((p) => <ProjectRow key={p.name} project={p} />)}
-          </ol>
-          <p className="section-foot work-foot"><ChipLink href="/project_archive">Project archive</ChipLink></p>
+          <div className="work-body">
+            <WorkCards />
+          </div>
         </section>
 
         <section className="section experience" data-reveal="line" id="experience" data-nav="experience" aria-labelledby="experience-title">
