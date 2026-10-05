@@ -65,36 +65,20 @@ function HushfieldStage() {
   );
 }
 
-const ruleIcons = {
-  ok: <path d="m5 8.2 2 2 4-4.2" />,
-  no: <path d="m5.6 5.6 4.8 4.8m0-4.8-4.8 4.8" />,
-};
-
-function Rule({ kind, label, value }: { kind: keyof typeof ruleIcons; label: string; value: string }) {
-  return (
-    <div className={`qio-rule qio-${kind}`}>
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="8" r="7" />{ruleIcons[kind]}</svg>
-      <span>{label}</span>
-      <span className="qio-v">{value}</span>
-    </div>
-  );
-}
-
+// The project's preview card, rebuilt: the agent's query goes through QueryIO before it reaches the database.
 function QueryIOStage() {
   return (
     <div className="stage stage-qio">
       <div className="qio-ui">
-        <pre className="qio-sql">
-          <span><b>UPDATE</b> subscriptions</span>
-          <span>SET status = &apos;cancelled&apos;</span>
-          <span>WHERE id = &apos;3f9a-11ee&apos;;</span>
-        </pre>
-        <div className="qio-gate">
-          <div className="qio-head"><b>QueryIO</b><span>checks every query first</span></div>
-          <Rule kind="ok" label="One statement" value="1 statement" />
-          <Rule kind="no" label="SELECT only" value="UPDATE refused" />
+        <p className="qio-title"><span className="qio-mark">[q]</span>QueryIO</p>
+        <div className="qio-flow">
+          <div className="qio-box"><small>Agent</small><b>Coding agent</b></div>
+          <i className="qio-arrow" />
+          <div className="qio-core"><span className="qio-mark">[q]</span><b>QueryIO</b><small>MCP</small></div>
+          <i className="qio-arrow" />
+          <div className="qio-box"><small>Database</small><b>PostgreSQL</b></div>
         </div>
-        <p className="qio-out"><span className="qio-node" /><strong>Refused before the database.</strong></p>
+        <p className="qio-tags">read-only · bounded · audited</p>
       </div>
     </div>
   );
