@@ -18,9 +18,8 @@ const selected: { name: string; desc: string; links: Link[]; status?: string; st
   },
   {
     name: "QueryIO",
-    desc: "Safe and simple database access for AI agents.",
-    links: [{ label: "Join the waitlist", href: "https://queryio1.vercel.app/" }],
-    status: "In development",
+    desc: "Safe, read-only PostgreSQL access for coding agents.",
+    links: [{ label: "Try QueryIO", href: "https://queryiomcp.vercel.app/" }],
     stage: <QueryIOStage />,
   },
   {

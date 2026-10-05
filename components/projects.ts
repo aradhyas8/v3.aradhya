@@ -12,9 +12,11 @@ export const projects: { year: string; name: string; status?: string; tools: str
     {
         year: '2026',
         name: 'QueryIO',
-        status: 'In development',
         tools: ['TypeScript', 'MCP', 'PostgreSQL'],
-        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/query-io' }],
+        links: [
+            { label: 'queryiomcp.vercel.app', href: 'https://queryiomcp.vercel.app/' },
+            { label: 'GitHub', href: 'https://github.com/aradhyas8/query-io' },
+        ],
     },
     {
         year: '2025',
