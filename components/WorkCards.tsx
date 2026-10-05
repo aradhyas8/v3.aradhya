@@ -18,7 +18,7 @@ const selected: { name: string; desc: string; links: Link[]; status?: string; st
   },
   {
     name: "QueryIO",
-    desc: "Safe, read-only PostgreSQL access for coding agents.",
+    desc: "Context engine for your AI agents.",
     links: [{ label: "Try QueryIO", href: "https://queryiomcp.vercel.app/" }],
     stage: <QueryIOStage />,
   },
@@ -64,21 +64,12 @@ function HushfieldStage() {
   );
 }
 
-// The project's preview card, rebuilt: the agent's query goes through QueryIO before it reaches the database.
+// The product's investigate panel: an agent answering a support case from real rows.
 function QueryIOStage() {
   return (
     <div className="stage stage-qio">
-      <div className="qio-ui">
-        <p className="qio-title"><span className="qio-mark">[q]</span>QueryIO</p>
-        <div className="qio-flow">
-          <div className="qio-box"><small>Agent</small><b>Coding agent</b></div>
-          <i className="qio-arrow" />
-          <div className="qio-core"><span className="qio-mark">[q]</span><b>QueryIO</b><small>MCP</small></div>
-          <i className="qio-arrow" />
-          <div className="qio-box"><small>Database</small><b>PostgreSQL</b></div>
-        </div>
-        <p className="qio-tags">read-only · bounded · audited</p>
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element -- decorative cover inside an aria-hidden stage */}
+      <img src="/static/Images/queryio-cover.png" alt="" loading="lazy" />
     </div>
   );
 }

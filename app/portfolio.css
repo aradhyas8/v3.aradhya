@@ -194,22 +194,8 @@ a { color: inherit; text-decoration: none; }
 .hush-eq i:nth-child(4) { transform: scaleY(0.35); }
 
 /* QueryIO: its preview card rebuilt as UI. The agent's query passes through QueryIO before it reaches Postgres. */
-.stage-qio { background: #f7f7f7; color: #0b0b0b; }
-.qio-ui { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4.5cqw; }
-.qio-title { display: flex; align-items: center; gap: 2.4cqw; font-size: 7cqw; font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
-.qio-mark { padding: 0.5cqw 1.4cqw; border-radius: 1cqw; font: 400 2.8cqw/1.4 var(--font-mono); letter-spacing: 0; background: #fff; box-shadow: inset 0 0 0 1px #dcdcdc; }
-.qio-flow { display: flex; align-items: center; }
-.qio-box, .qio-core { display: flex; flex-direction: column; border-radius: 1.6cqw; }
-.qio-box { width: 23cqw; height: 22cqw; justify-content: space-between; padding: 2.4cqw; background: #fff; box-shadow: inset 0 0 0 1px #dcdcdc; }
-.qio-box small { font: 400 max(8px, 2.1cqw)/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: #555; }
-.qio-box b { font-size: 3.5cqw; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
-.qio-core { width: 27cqw; height: 27cqw; align-items: center; justify-content: center; gap: 1.6cqw; background: #0b0b0b; color: #fff; box-shadow: 0 3cqw 5cqw -2cqw rgb(0 0 0 / 0.35); }
-.qio-core .qio-mark { font-size: 4cqw; background: #1a1a1a; box-shadow: inset 0 0 0 1px #3a3a3a; }
-.qio-core b { font-size: 4.2cqw; font-weight: 600; letter-spacing: -0.03em; }
-.qio-core small { font: 400 max(8px, 2.1cqw)/1 var(--font-mono); letter-spacing: 0.12em; color: #d8d8d8; }
-.qio-arrow { position: relative; width: 6cqw; height: 1px; margin: 0 1.2cqw; background: #6b6b6b; }
-.qio-arrow::after { content: ""; position: absolute; right: -1px; top: 50%; translate: 0 -50%; border: 0.9cqw solid transparent; border-right: 0; border-left: 1.4cqw solid #6b6b6b; }
-.qio-tags { font: 400 max(9px, 2.5cqw)/1 var(--font-mono); color: #444; }
+.stage-qio { background: #0f1117; }
+.stage-qio img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
 
 /* PageMind: a page on the left, the conversation about it on the right; the highlighted line is the answer's source. */
 .stage-pm { background: radial-gradient(80% 60% at 50% 0%, rgb(79 125 255 / 0.16), transparent 70%), #0f1117; }
@@ -287,14 +273,6 @@ a { color: inherit; text-decoration: none; }
   .work-card[data-play] .hush-np { animation: work-land 600ms var(--ease-out) 700ms backwards; }
 
   /* QueryIO, about 2.2s: the name lands, then the query walks the flow box by box and the guarantees type in. */
-  .work-card[data-play] .qio-title { animation: work-land 500ms var(--ease-out) 100ms backwards; }
-  .work-card[data-play] .qio-box:first-child { animation: work-land 450ms var(--ease-out) 400ms backwards; }
-  .work-card[data-play] .qio-arrow { animation: work-type 300ms var(--ease-out) 750ms backwards; }
-  .work-card[data-play] .qio-core { animation: work-land 500ms var(--ease-out) 950ms backwards; }
-  .work-card[data-play] .qio-core .qio-mark { animation: work-pop 450ms var(--ease-out) 1150ms backwards; }
-  .work-card[data-play] .qio-arrow ~ .qio-arrow { animation-delay: 1350ms; }
-  .work-card[data-play] .qio-box:last-child { animation: work-land 450ms var(--ease-out) 1550ms backwards; }
-  .work-card[data-play] .qio-tags { animation: work-type 600ms steps(30, end) 1800ms backwards; }
 
   /* PageMind, about 2.4s: the source line is highlighted, the question lands, the answer streams and cites it. */
   .work-card[data-play] .pm-doc mark { animation: work-mark 700ms var(--ease-out) 200ms backwards; }
