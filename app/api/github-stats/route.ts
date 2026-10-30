@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 1800; // 30 minutes on server
 
 function formatCount(num: number): string {
   if (num >= 1_000_000) {
@@ -42,11 +42,11 @@ export async function GET(request: Request) {
   }
 
   try {
-    // In dev: no-store for instant updates. In prod: 60s cache so GitHub rate limit (60 req/hr unauth) is respected.
+    // In dev: no-store for instant local testing. In prod: 30m revalidate (only ~4 calls/hr total across both repos)
     const fetchOptions: RequestInit =
       process.env.NODE_ENV === "development"
         ? { headers, cache: "no-store" }
-        : { headers, next: { revalidate: 60 } };
+        : { headers, next: { revalidate: 1800 } };
 
     const [repoRes, releasesRes] = await Promise.all([
       fetch(`https://api.github.com/repos/${repo}`, fetchOptions),
@@ -91,7 +91,7 @@ export async function GET(request: Request) {
       },
       {
         headers: {
-          "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+          "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=86400",
         },
       }
     );
