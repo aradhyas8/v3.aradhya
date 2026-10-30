@@ -76,7 +76,7 @@ function AlderStage() {
   return (
     <div className="stage stage-alder">
       {/* eslint-disable-next-line @next/next/no-img-element -- decorative cover inside an aria-hidden stage */}
-      <img src="/static/Images/alder-cover.svg" alt="" loading="lazy" />
+      <img src="/static/Images/alder-cover.webp" alt="" loading="lazy" />
     </div>
   );
 }
