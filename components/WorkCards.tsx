@@ -85,7 +85,7 @@ function PlumeStage() {
   return (
     <div className="stage stage-plume">
       {/* eslint-disable-next-line @next/next/no-img-element -- decorative cover inside an aria-hidden stage */}
-      <img src="/static/Images/plume-cover.svg" alt="" loading="lazy" />
+      <img src="/static/Images/plume-cover.jpg" alt="" loading="lazy" />
     </div>
   );
 }
