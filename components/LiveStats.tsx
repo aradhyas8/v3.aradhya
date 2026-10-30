@@ -22,45 +22,31 @@ export default function LiveStats({
 
   useEffect(() => {
     let isMounted = true;
-    const cacheKey = `gh_stats_${repo}`;
 
-    try {
-      const cached = sessionStorage.getItem(cacheKey);
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        // 15-minute client session cache
-        if (Date.now() - parsed.timestamp < 15 * 60 * 1000) {
-          if (parsed.starsFormatted) setStars(parsed.starsFormatted);
-          if (parsed.downloadsFormatted) setDownloads(parsed.downloadsFormatted);
-          return;
-        }
-      }
-    } catch {
-      // Ignore sessionStorage errors
-    }
-
-    fetch(`/api/github-stats?repo=${encodeURIComponent(repo)}`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch(`/api/github-stats?repo=${encodeURIComponent(repo)}`, {
+          cache: "no-store",
+        });
+        if (!res.ok) return;
+        const data = await res.json();
         if (!isMounted || !data) return;
         if (data.starsFormatted) setStars(data.starsFormatted);
         if (data.downloadsFormatted) setDownloads(data.downloadsFormatted);
+      } catch {
+        // Keep current values on network failure
+      }
+    };
 
-        try {
-          sessionStorage.setItem(
-            cacheKey,
-            JSON.stringify({ ...data, timestamp: Date.now() })
-          );
-        } catch {
-          // Ignore storage errors
-        }
-      })
-      .catch(() => {
-        // Keep fallback values
-      });
+    // Immediate fetch on mount/load
+    fetchStats();
+
+    // Auto-update every 60 seconds while viewing the page
+    const interval = setInterval(fetchStats, 60_000);
 
     return () => {
       isMounted = false;
+      clearInterval(interval);
     };
   }, [repo]);
 
