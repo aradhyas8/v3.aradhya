@@ -1,12 +1,62 @@
+import { Fragment } from "react";
 import CardMotion from "@/components/CardMotion";
+import LiveStats from "@/components/LiveStats";
 import { projects } from "@/components/projects";
 
 type Link = { label: string; href: string };
 
+type CardItem = {
+  name: string;
+  desc: string;
+  links: Link[];
+  status?: string;
+  liveStats?: {
+    repo: string;
+    defaultStars: string;
+    defaultDownloads: string;
+    stargazersUrl: string;
+    releasesUrl: string;
+  };
+  stage: React.ReactNode;
+};
+
 // Selected Work: three equal cards per row. Each stage shows the product doing its one thing, rebuilt as UI
 // so it stays sharp at any size; the last card lists the rest of the archive.
 // Every stage is finished at rest. CardMotion plays its story on scroll-in and hover (see .work-card in portfolio.css).
-const selected: { name: string; desc: string; links: Link[]; status?: string; stage: React.ReactNode }[] = [
+const selected: CardItem[] = [
+  {
+    name: "Alder",
+    desc: "Custom Android TV client for Stremio with smart stream selection.",
+    links: [
+      { label: "Download APK", href: "https://github.com/aradhyas8/Alder/releases/latest" },
+      { label: "GitHub", href: "https://github.com/aradhyas8/Alder" },
+    ],
+    liveStats: {
+      repo: "aradhyas8/Alder",
+      defaultStars: "143 stars",
+      defaultDownloads: "2.6k downloads",
+      stargazersUrl: "https://github.com/aradhyas8/Alder/stargazers",
+      releasesUrl: "https://github.com/aradhyas8/Alder/releases",
+    },
+    stage: <AlderStage />,
+  },
+  {
+    name: "Plume",
+    desc: "Minimal, ad-free Android TV launcher with zero bloat.",
+    links: [
+      { label: "Download APK", href: "https://github.com/aradhyas8/Plume_Launcher/releases/latest" },
+      { label: "Website", href: "#" },
+      { label: "GitHub", href: "https://github.com/aradhyas8/Plume_Launcher" },
+    ],
+    liveStats: {
+      repo: "aradhyas8/Plume_Launcher",
+      defaultStars: "288 stars",
+      defaultDownloads: "13k downloads",
+      stargazersUrl: "https://github.com/aradhyas8/Plume_Launcher/stargazers",
+      releasesUrl: "https://github.com/aradhyas8/Plume_Launcher/releases",
+    },
+    stage: <PlumeStage />,
+  },
   {
     name: "Hushfield",
     desc: "Ambient audio for sleep, focus and quiet.",
@@ -28,23 +78,29 @@ const selected: { name: string; desc: string; links: Link[]; status?: string; st
     links: [{ label: "Try PageMind", href: "https://www.pagemind.app" }],
     stage: <PageMindStage />,
   },
-  {
-    name: "v2.aradhya",
-    desc: "The previous version of this site.",
-    links: [{ label: "Visit v2", href: "https://v2.aradhya.dev" }],
-    stage: <V2Stage />,
-  },
-  {
-    name: "v1.aradhya",
-    desc: "The first version of this site.",
-    links: [{ label: "Visit v1", href: "https://v1.aradhya.dev" }],
-    stage: <V1Stage />,
-  },
 ];
 
 const others = projects
   .filter((p) => !selected.some((s) => s.name === p.name))
   .sort((a, b) => Number(b.year) - Number(a.year));
+
+function AlderStage() {
+  return (
+    <div className="stage stage-alder">
+      {/* eslint-disable-next-line @next/next/no-img-element -- decorative cover inside an aria-hidden stage */}
+      <img src="/static/Images/alder-cover.webp" alt="" loading="lazy" />
+    </div>
+  );
+}
+
+function PlumeStage() {
+  return (
+    <div className="stage stage-plume">
+      {/* eslint-disable-next-line @next/next/no-img-element -- decorative cover inside an aria-hidden stage */}
+      <img src="/static/Images/plume-cover.webp" alt="" loading="lazy" />
+    </div>
+  );
+}
 
 function HushfieldStage() {
   return (
@@ -93,40 +149,6 @@ function PageMindStage() {
   );
 }
 
-// The old site's first screen, rebuilt: name and nav on the left, the about card on the right.
-// On play the nav indicator steps through its sections, the old site's signature interaction.
-function V2Stage() {
-  return (
-    <div className="stage stage-v2">
-      <div className="v2-ui">
-        <div className="v2-bar"><i /><i /><i /><span>v2.aradhya.dev</span></div>
-        <div className="v2-page">
-          <div className="v2-left">
-            <p className="v2-name">Aradhya Singh</p>
-            <p className="v2-role">Software Developer</p>
-            <ul className="v2-nav"><li>About</li><li>Experience</li><li>Project</li></ul>
-          </div>
-          <p className="v2-card">Graduating from <b>York University</b> with a Bachelor of Science in Computer Science, my career has spanned roles such as a Software Engineer Intern at <b>Fibra Inc.</b> and a Quality Engineering Intern at <b>theScore</b> in Toronto.</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// The first site's intro, rebuilt in its navy and teal. On play the name types itself out, as it did on the real page.
-function V1Stage() {
-  return (
-    <div className="stage stage-v1">
-      <ul className="v1-nav"><li><b>01.</b> Home</li><li><b>02.</b> About</li><li><b>03.</b> Experience</li></ul>
-      <div className="v1-hero">
-        <p className="v1-hi">hi, I am <span className="v1-name">Aradhya.</span><span className="v1-caret" /></p>
-        <p className="v1-sub">I like to solve problems.</p>
-        <span className="v1-btn">Resume</span>
-      </div>
-    </div>
-  );
-}
-
 // The list is rendered twice so the scroll loop can wrap without a seam.
 function ArchiveStage() {
   const rows = (pass: number) => others.map((p) => (
@@ -140,8 +162,9 @@ function ArchiveStage() {
 }
 
 // The name links to the card's main destination and its hit area covers the whole card; secondary links sit above it.
-function WorkCard({ name, desc, links, status, stage }: { name: string; desc: string; links: Link[]; status?: string; stage: React.ReactNode }) {
-  const [primary] = links;
+function WorkCard({ name, desc, links, status, liveStats, stage }: CardItem) {
+  // If the first link is a placeholder like '#', prioritize the next real link for the card click target
+  const primary = links.find((l) => l.href && l.href !== "#") ?? links[0];
   const ext = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {});
   return (
     <li className="work-card" data-reveal="up">
@@ -152,10 +175,20 @@ function WorkCard({ name, desc, links, status, stage }: { name: string; desc: st
       <div className="work-cap">
         <div className="work-cap-top">
           <h3 className="work-name">{primary ? <a href={primary.href} {...ext(primary.href)}>{name}</a> : name}</h3>
+          {liveStats ? <LiveStats {...liveStats} /> : null}
           {status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{status}</span> : null}
         </div>
         <p className="work-desc">{desc}</p>
-        <p className="work-links">{links.map((l) => <a key={l.href} className="text-link" href={l.href} {...ext(l.href)}>{l.label}</a>)}</p>
+        <p className="work-links">
+          {links.map((l, idx) => (
+            <Fragment key={l.label + l.href}>
+              {idx > 0 && <span className="work-link-sep" aria-hidden="true">·</span>}
+              <a className="text-link" href={l.href} {...ext(l.href)}>
+                {l.label}
+              </a>
+            </Fragment>
+          ))}
+        </p>
       </div>
     </li>
   );

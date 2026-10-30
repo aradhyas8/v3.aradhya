@@ -150,13 +150,102 @@ a { color: inherit; text-decoration: none; }
 .stage-spot { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0; transition: opacity 500ms var(--ease-out);
   background: radial-gradient(22cqw circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.08), transparent 70%); }
 
-.work-cap { display: grid; gap: 0.25rem; }
-.work-cap-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+.work-cap { display: grid; gap: 0.35rem; }
+.work-cap-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  flex-wrap: wrap;
+}
 .work-name { font-size: 1.375rem; font-weight: 500; line-height: 1.1; letter-spacing: -0.015em; color: var(--color-ink); }
 .work-name a::after { content: ""; position: absolute; inset: 0; z-index: 6; }
 .work-desc { font-size: 0.9375rem; line-height: 1.5; color: var(--color-body); }
-.work-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin-top: 0.5rem; font-size: 0.875rem; }
+
+/* Translucent glass stats badge beside the project title */
+.work-stats-badge {
+  position: relative;
+  z-index: 7;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.24rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--color-body);
+  transition: background 180ms var(--ease-out), border-color 180ms var(--ease-out), color 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+.work-stats-badge:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--color-ink);
+  transform: translateY(-1px);
+}
+.work-stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: inherit;
+  text-decoration: none;
+  transition: color 150ms var(--ease-out);
+}
+.work-stat-item:hover {
+  color: #ffffff;
+}
+.work-stat-item svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 150ms var(--ease-out), transform 150ms var(--ease-out);
+}
+.work-stat-item:hover svg {
+  opacity: 1;
+  transform: scale(1.12);
+}
+.work-stat-sep {
+  color: var(--color-meta);
+  opacity: 0.45;
+  font-size: 0.625rem;
+  user-select: none;
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
 .work-links a, .work-card .project-status { position: relative; z-index: 7; }
+.work-links a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: color 180ms var(--ease-out);
+}
+.work-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+}
+.work-link-sep {
+  color: var(--color-meta);
+  opacity: 0.45;
+  font-size: 0.8125rem;
+  user-select: none;
+}
 /* Status is a quiet outlined chip: readable as metadata, never mistaken for a link. */
 .project-status {
   display: inline-flex; align-items: center; gap: 0.4rem; align-self: center;
@@ -192,6 +281,16 @@ a { color: inherit; text-decoration: none; }
 .hush-eq i:nth-child(2) { transform: scaleY(0.8); }
 .hush-eq i:nth-child(3) { transform: scaleY(0.6); }
 .hush-eq i:nth-child(4) { transform: scaleY(0.35); }
+
+/* Alder: Custom Android TV client for Stremio */
+.stage-alder { background: #0d0e14; }
+.stage-alder img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 500ms var(--ease-out); }
+.work-card:hover .stage-alder img { transform: scale(1.03); }
+
+/* Plume: Minimal Android TV launcher */
+.stage-plume { background: #0b0c10; }
+.stage-plume img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 500ms var(--ease-out); }
+.work-card:hover .stage-plume img { transform: scale(1.03); }
 
 /* QueryIO: its preview card rebuilt as UI. The agent's query passes through QueryIO before it reaches Postgres. */
 .stage-qio { background: #0f1117; }
