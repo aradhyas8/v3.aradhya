@@ -67,9 +67,9 @@ export default function LiveStats({
   const downloadsCount = downloads.replace(/\s*downloads?$/i, "");
 
   return (
-    <div className="stage-stats-badge" aria-label="GitHub stars and downloads">
+    <div className="work-stats-badge" aria-label="GitHub stars and downloads">
       <a
-        className="stage-stat-item"
+        className="work-stat-item"
         href={stargazersUrl}
         target="_blank"
         rel="noopener noreferrer"
@@ -80,9 +80,9 @@ export default function LiveStats({
         </svg>
         <span>{starsCount}</span>
       </a>
-      <span className="stage-stat-sep" aria-hidden="true">•</span>
+      <span className="work-stat-sep" aria-hidden="true">•</span>
       <a
-        className="stage-stat-item"
+        className="work-stat-item"
         href={releasesUrl}
         target="_blank"
         rel="noopener noreferrer"

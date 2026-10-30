@@ -168,14 +168,14 @@ function WorkCard({ name, desc, links, status, liveStats, stage }: CardItem) {
   const ext = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {});
   return (
     <li className="work-card" data-reveal="up">
-      <div className="stage-frame">
+      <div className="stage-frame" aria-hidden="true">
         {stage}
-        {liveStats ? <LiveStats {...liveStats} /> : null}
-        <div className="stage-spot" aria-hidden="true" />
+        <div className="stage-spot" />
       </div>
       <div className="work-cap">
         <div className="work-cap-top">
           <h3 className="work-name">{primary ? <a href={primary.href} {...ext(primary.href)}>{name}</a> : name}</h3>
+          {liveStats ? <LiveStats {...liveStats} /> : null}
           {status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{status}</span> : null}
         </div>
         <p className="work-desc">{desc}</p>
