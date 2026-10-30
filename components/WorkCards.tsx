@@ -168,9 +168,10 @@ function WorkCard({ name, desc, links, status, liveStats, stage }: CardItem) {
   const ext = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {});
   return (
     <li className="work-card" data-reveal="up">
-      <div className="stage-frame" aria-hidden="true">
+      <div className="stage-frame">
         {stage}
-        <div className="stage-spot" />
+        {liveStats ? <LiveStats {...liveStats} /> : null}
+        <div className="stage-spot" aria-hidden="true" />
       </div>
       <div className="work-cap">
         <div className="work-cap-top">
@@ -178,14 +179,12 @@ function WorkCard({ name, desc, links, status, liveStats, stage }: CardItem) {
           {status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{status}</span> : null}
         </div>
         <p className="work-desc">{desc}</p>
-        {liveStats ? <LiveStats {...liveStats} /> : null}
         <p className="work-links">
           {links.map((l, idx) => (
             <Fragment key={l.label + l.href}>
-              {idx > 0 && <span className="work-link-sep" aria-hidden="true">|</span>}
+              {idx > 0 && <span className="work-link-sep" aria-hidden="true">·</span>}
               <a className="text-link" href={l.href} {...ext(l.href)}>
-                <span>{l.label}</span>
-                <span className="link-arr" aria-hidden="true">↗</span>
+                {l.label}
               </a>
             </Fragment>
           ))}
