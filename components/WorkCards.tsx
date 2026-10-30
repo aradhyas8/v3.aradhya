@@ -2,7 +2,7 @@ import CardMotion from "@/components/CardMotion";
 import { projects } from "@/components/projects";
 
 type Link = { label: string; href: string };
-type Stat = { label: string; value: string; href?: string; icon: "star" | "download" };
+type Stat = { label: string; value: string; text?: string; href?: string; icon: "star" | "download" };
 
 type CardItem = {
   name: string;
@@ -32,14 +32,16 @@ const selected: CardItem[] = [
     ],
     stats: [
       {
-        label: "Stars",
+        label: "stars",
         value: "280+",
+        text: "280+ stars",
         href: "https://github.com/aradhyas8/Plume_Launcher/stargazers",
         icon: "star",
       },
       {
-        label: "Downloads",
+        label: "downloads",
         value: "7.8k",
+        text: "7.8k downloads",
         href: "https://github.com/aradhyas8/Plume_Launcher/releases",
         icon: "download",
       },
@@ -168,26 +170,28 @@ function WorkCard({ name, desc, links, status, stats, stage }: CardItem) {
           {stats ? (
             <div className="project-stats" aria-label={`${name} statistics`}>
               {stats.map((s) => {
+                const isStar = s.icon === "star";
                 const content = (
                   <>
-                    {s.icon === "star" ? (
-                      <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor" aria-hidden="true">
+                    {isStar ? (
+                      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                         <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
                       </svg>
                     ) : (
-                      <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M8 2.5v8m-3.5-3.5L8 10.5l3.5-3.5M3 13.5h10" />
                       </svg>
                     )}
-                    <span>{s.value}</span>
+                    <span>{s.text ?? `${s.value} ${s.label}`}</span>
                   </>
                 );
+                const pillClass = `stat-pill ${isStar ? "stat-pill-star" : "stat-pill-download"}`;
                 return s.href ? (
-                  <a key={s.label} className="stat-pill" href={s.href} {...ext(s.href)} title={`${s.value} ${s.label}`}>
+                  <a key={s.label} className={pillClass} href={s.href} {...ext(s.href)} title={`${s.value} ${s.label}`}>
                     {content}
                   </a>
                 ) : (
-                  <span key={s.label} className="stat-pill" title={`${s.value} ${s.label}`}>
+                  <span key={s.label} className={pillClass} title={`${s.value} ${s.label}`}>
                     {content}
                   </span>
                 );
