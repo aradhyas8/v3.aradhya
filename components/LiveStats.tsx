@@ -22,37 +22,22 @@ export default function LiveStats({
 
   useEffect(() => {
     let isMounted = true;
-    const cacheKey = `gh_stats_${repo}`;
 
+    // Clear any obsolete session storage keys from earlier sessions
     try {
-      const cached = sessionStorage.getItem(cacheKey);
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        if (Date.now() - parsed.timestamp < 15 * 60 * 1000) {
-          if (parsed.starsFormatted) setStars(parsed.starsFormatted);
-          if (parsed.downloadsFormatted) setDownloads(parsed.downloadsFormatted);
-          return;
-        }
-      }
+      sessionStorage.removeItem(`gh_stats_${repo}`);
     } catch {
-      // Ignore sessionStorage unavailability
+      // Ignore
     }
 
-    fetch(`/api/github-stats?repo=${encodeURIComponent(repo)}`)
+    fetch(`/api/github-stats?repo=${encodeURIComponent(repo)}`, {
+      cache: "no-store",
+    })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!isMounted || !data) return;
         if (data.starsFormatted) setStars(data.starsFormatted);
         if (data.downloadsFormatted) setDownloads(data.downloadsFormatted);
-
-        try {
-          sessionStorage.setItem(
-            cacheKey,
-            JSON.stringify({ ...data, timestamp: Date.now() })
-          );
-        } catch {
-          // Ignore storage quota
-        }
       })
       .catch(() => {
         // Fallback remains active
@@ -86,7 +71,7 @@ export default function LiveStats({
         href={releasesUrl}
         target="_blank"
         rel="noopener noreferrer"
-        title={`${downloadsCount} total APK downloads`}
+        title={`${downloadsCount} total downloads`}
       >
         <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M8 2v8.5m-3.5-3.5L8 10.5l3.5-3.5M3 13.5h10" />
