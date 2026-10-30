@@ -1,15 +1,21 @@
 import CardMotion from "@/components/CardMotion";
+import LiveStats from "@/components/LiveStats";
 import { projects } from "@/components/projects";
 
 type Link = { label: string; href: string };
-type Stat = { label: string; value: string; text?: string; href?: string; icon: "star" | "download" };
 
 type CardItem = {
   name: string;
   desc: string;
   links: Link[];
   status?: string;
-  stats?: Stat[];
+  liveStats?: {
+    repo: string;
+    defaultStars: string;
+    defaultDownloads: string;
+    stargazersUrl: string;
+    releasesUrl: string;
+  };
   stage: React.ReactNode;
 };
 
@@ -30,22 +36,13 @@ const selected: CardItem[] = [
       { label: "Website", href: "#" },
       { label: "GitHub", href: "https://github.com/aradhyas8/Plume_Launcher" },
     ],
-    stats: [
-      {
-        label: "stars",
-        value: "280+",
-        text: "280+ stars",
-        href: "https://github.com/aradhyas8/Plume_Launcher/stargazers",
-        icon: "star",
-      },
-      {
-        label: "downloads",
-        value: "7.8k",
-        text: "7.8k downloads",
-        href: "https://github.com/aradhyas8/Plume_Launcher/releases",
-        icon: "download",
-      },
-    ],
+    liveStats: {
+      repo: "aradhyas8/Plume_Launcher",
+      defaultStars: "280+ stars",
+      defaultDownloads: "7.8k downloads",
+      stargazersUrl: "https://github.com/aradhyas8/Plume_Launcher/stargazers",
+      releasesUrl: "https://github.com/aradhyas8/Plume_Launcher/releases",
+    },
     stage: <PlumeStage />,
   },
   {
@@ -153,7 +150,7 @@ function ArchiveStage() {
 }
 
 // The name links to the card's main destination and its hit area covers the whole card; secondary links sit above it.
-function WorkCard({ name, desc, links, status, stats, stage }: CardItem) {
+function WorkCard({ name, desc, links, status, liveStats, stage }: CardItem) {
   // If the first link is a placeholder like '#', prioritize the next real link for the card click target
   const primary = links.find((l) => l.href && l.href !== "#") ?? links[0];
   const ext = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {});
@@ -167,37 +164,7 @@ function WorkCard({ name, desc, links, status, stats, stage }: CardItem) {
         <div className="work-cap-top">
           <h3 className="work-name">{primary ? <a href={primary.href} {...ext(primary.href)}>{name}</a> : name}</h3>
           {status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{status}</span> : null}
-          {stats ? (
-            <div className="project-stats" aria-label={`${name} statistics`}>
-              {stats.map((s) => {
-                const isStar = s.icon === "star";
-                const content = (
-                  <>
-                    {isStar ? (
-                      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                        <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M8 2.5v8m-3.5-3.5L8 10.5l3.5-3.5M3 13.5h10" />
-                      </svg>
-                    )}
-                    <span>{s.text ?? `${s.value} ${s.label}`}</span>
-                  </>
-                );
-                const pillClass = `stat-pill ${isStar ? "stat-pill-star" : "stat-pill-download"}`;
-                return s.href ? (
-                  <a key={s.label} className={pillClass} href={s.href} {...ext(s.href)} title={`${s.value} ${s.label}`}>
-                    {content}
-                  </a>
-                ) : (
-                  <span key={s.label} className={pillClass} title={`${s.value} ${s.label}`}>
-                    {content}
-                  </span>
-                );
-              })}
-            </div>
-          ) : null}
+          {liveStats ? <LiveStats {...liveStats} /> : null}
         </div>
         <p className="work-desc">{desc}</p>
         <p className="work-links">
