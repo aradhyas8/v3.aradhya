@@ -10,7 +10,10 @@ export const projects: { year: string; name: string; status?: string; tools: str
         year: '2026',
         name: 'Plume',
         tools: ['Kotlin', 'Android TV', 'Leanback'],
-        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/Plume_Launcher' }],
+        links: [
+            { label: 'GitHub', href: 'https://github.com/aradhyas8/Plume_Launcher' },
+            { label: 'Website', href: '#' },
+        ],
     },
     {
         year: '2026',

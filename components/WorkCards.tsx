@@ -2,11 +2,21 @@ import CardMotion from "@/components/CardMotion";
 import { projects } from "@/components/projects";
 
 type Link = { label: string; href: string };
+type Stat = { label: string; value: string; href?: string; icon: "star" | "download" };
+
+type CardItem = {
+  name: string;
+  desc: string;
+  links: Link[];
+  status?: string;
+  stats?: Stat[];
+  stage: React.ReactNode;
+};
 
 // Selected Work: three equal cards per row. Each stage shows the product doing its one thing, rebuilt as UI
 // so it stays sharp at any size; the last card lists the rest of the archive.
 // Every stage is finished at rest. CardMotion plays its story on scroll-in and hover (see .work-card in portfolio.css).
-const selected: { name: string; desc: string; links: Link[]; status?: string; stage: React.ReactNode }[] = [
+const selected: CardItem[] = [
   {
     name: "Alder",
     desc: "Custom Android TV client for Stremio with smart stream selection.",
@@ -16,7 +26,24 @@ const selected: { name: string; desc: string; links: Link[]; status?: string; st
   {
     name: "Plume",
     desc: "Minimal, ad-free Android TV launcher with zero bloat.",
-    links: [{ label: "GitHub", href: "https://github.com/aradhyas8/Plume_Launcher" }],
+    links: [
+      { label: "Website", href: "#" },
+      { label: "GitHub", href: "https://github.com/aradhyas8/Plume_Launcher" },
+    ],
+    stats: [
+      {
+        label: "Stars",
+        value: "280+",
+        href: "https://github.com/aradhyas8/Plume_Launcher/stargazers",
+        icon: "star",
+      },
+      {
+        label: "Downloads",
+        value: "7.8k",
+        href: "https://github.com/aradhyas8/Plume_Launcher/releases",
+        icon: "download",
+      },
+    ],
     stage: <PlumeStage />,
   },
   {
@@ -124,8 +151,9 @@ function ArchiveStage() {
 }
 
 // The name links to the card's main destination and its hit area covers the whole card; secondary links sit above it.
-function WorkCard({ name, desc, links, status, stage }: { name: string; desc: string; links: Link[]; status?: string; stage: React.ReactNode }) {
-  const [primary] = links;
+function WorkCard({ name, desc, links, status, stats, stage }: CardItem) {
+  // If the first link is a placeholder like '#', prioritize the next real link for the card click target
+  const primary = links.find((l) => l.href && l.href !== "#") ?? links[0];
   const ext = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {});
   return (
     <li className="work-card" data-reveal="up">
@@ -137,9 +165,44 @@ function WorkCard({ name, desc, links, status, stage }: { name: string; desc: st
         <div className="work-cap-top">
           <h3 className="work-name">{primary ? <a href={primary.href} {...ext(primary.href)}>{name}</a> : name}</h3>
           {status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{status}</span> : null}
+          {stats ? (
+            <div className="project-stats" aria-label={`${name} statistics`}>
+              {stats.map((s) => {
+                const content = (
+                  <>
+                    {s.icon === "star" ? (
+                      <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor" aria-hidden="true">
+                        <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M8 2.5v8m-3.5-3.5L8 10.5l3.5-3.5M3 13.5h10" />
+                      </svg>
+                    )}
+                    <span>{s.value}</span>
+                  </>
+                );
+                return s.href ? (
+                  <a key={s.label} className="stat-pill" href={s.href} {...ext(s.href)} title={`${s.value} ${s.label}`}>
+                    {content}
+                  </a>
+                ) : (
+                  <span key={s.label} className="stat-pill" title={`${s.value} ${s.label}`}>
+                    {content}
+                  </span>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
         <p className="work-desc">{desc}</p>
-        <p className="work-links">{links.map((l) => <a key={l.href} className="text-link" href={l.href} {...ext(l.href)}>{l.label}</a>)}</p>
+        <p className="work-links">
+          {links.map((l) => (
+            <a key={l.label + l.href} className="text-link" href={l.href} {...ext(l.href)}>
+              {l.label}
+            </a>
+          ))}
+        </p>
       </div>
     </li>
   );
