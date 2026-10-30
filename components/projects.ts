@@ -11,8 +11,9 @@ export const projects: { year: string; name: string; status?: string; tools: str
         name: 'Plume',
         tools: ['Kotlin', 'Android TV', 'Leanback'],
         links: [
-            { label: 'GitHub', href: 'https://github.com/aradhyas8/Plume_Launcher' },
+            { label: 'Download APK', href: 'https://github.com/aradhyas8/Plume_Launcher/releases/latest' },
             { label: 'Website', href: '#' },
+            { label: 'GitHub', href: 'https://github.com/aradhyas8/Plume_Launcher' },
         ],
     },
     {

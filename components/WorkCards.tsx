@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import CardMotion from "@/components/CardMotion";
 import LiveStats from "@/components/LiveStats";
 import { projects } from "@/components/projects";
@@ -33,12 +34,13 @@ const selected: CardItem[] = [
     name: "Plume",
     desc: "Minimal, ad-free Android TV launcher with zero bloat.",
     links: [
+      { label: "Download APK", href: "https://github.com/aradhyas8/Plume_Launcher/releases/latest" },
       { label: "Website", href: "#" },
       { label: "GitHub", href: "https://github.com/aradhyas8/Plume_Launcher" },
     ],
     liveStats: {
       repo: "aradhyas8/Plume_Launcher",
-      defaultStars: "280+ stars",
+      defaultStars: "287 stars",
       defaultDownloads: "7.8k downloads",
       stargazersUrl: "https://github.com/aradhyas8/Plume_Launcher/stargazers",
       releasesUrl: "https://github.com/aradhyas8/Plume_Launcher/releases",
@@ -164,14 +166,18 @@ function WorkCard({ name, desc, links, status, liveStats, stage }: CardItem) {
         <div className="work-cap-top">
           <h3 className="work-name">{primary ? <a href={primary.href} {...ext(primary.href)}>{name}</a> : name}</h3>
           {status ? <span className="project-status"><span className="live-dot" aria-hidden="true" />{status}</span> : null}
-          {liveStats ? <LiveStats {...liveStats} /> : null}
         </div>
         <p className="work-desc">{desc}</p>
+        {liveStats ? <LiveStats {...liveStats} /> : null}
         <p className="work-links">
-          {links.map((l) => (
-            <a key={l.label + l.href} className="text-link" href={l.href} {...ext(l.href)}>
-              {l.label}
-            </a>
+          {links.map((l, idx) => (
+            <Fragment key={l.label + l.href}>
+              {idx > 0 && <span className="work-link-sep" aria-hidden="true">|</span>}
+              <a className="text-link" href={l.href} {...ext(l.href)}>
+                <span>{l.label}</span>
+                <span className="link-arr" aria-hidden="true">↗</span>
+              </a>
+            </Fragment>
           ))}
         </p>
       </div>
