@@ -27,7 +27,17 @@ const selected: CardItem[] = [
   {
     name: "Alder",
     desc: "Custom Android TV client for Stremio with smart stream selection.",
-    links: [{ label: "GitHub", href: "https://github.com/aradhyas8/Alder" }],
+    links: [
+      { label: "Download APK", href: "https://github.com/aradhyas8/Alder/releases/latest" },
+      { label: "GitHub", href: "https://github.com/aradhyas8/Alder" },
+    ],
+    liveStats: {
+      repo: "aradhyas8/Alder",
+      defaultStars: "143 stars",
+      defaultDownloads: "2.5k downloads",
+      stargazersUrl: "https://github.com/aradhyas8/Alder/stargazers",
+      releasesUrl: "https://github.com/aradhyas8/Alder/releases",
+    },
     stage: <AlderStage />,
   },
   {

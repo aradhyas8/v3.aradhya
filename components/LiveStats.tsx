@@ -65,7 +65,7 @@ export default function LiveStats({
   }, [repo]);
 
   return (
-    <div className="work-stats-row" aria-label="Plume repository statistics">
+    <div className="work-stats-row" aria-label="Repository statistics">
       <a
         className="work-stat-item"
         href={stargazersUrl}

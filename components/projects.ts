@@ -4,7 +4,10 @@ export const projects: { year: string; name: string; status?: string; tools: str
         year: '2026',
         name: 'Alder',
         tools: ['Kotlin', 'Android TV', 'Stremio API'],
-        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/Alder' }],
+        links: [
+            { label: 'Download APK', href: 'https://github.com/aradhyas8/Alder/releases/latest' },
+            { label: 'GitHub', href: 'https://github.com/aradhyas8/Alder' },
+        ],
     },
     {
         year: '2026',
