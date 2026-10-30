@@ -34,7 +34,7 @@ const selected: CardItem[] = [
     liveStats: {
       repo: "aradhyas8/Alder",
       defaultStars: "143 stars",
-      defaultDownloads: "2.5k downloads",
+      defaultDownloads: "2.6k downloads",
       stargazersUrl: "https://github.com/aradhyas8/Alder/stargazers",
       releasesUrl: "https://github.com/aradhyas8/Alder/releases",
     },
@@ -50,8 +50,8 @@ const selected: CardItem[] = [
     ],
     liveStats: {
       repo: "aradhyas8/Plume_Launcher",
-      defaultStars: "287 stars",
-      defaultDownloads: "7.8k downloads",
+      defaultStars: "288 stars",
+      defaultDownloads: "13k downloads",
       stargazersUrl: "https://github.com/aradhyas8/Plume_Launcher/stargazers",
       releasesUrl: "https://github.com/aradhyas8/Plume_Launcher/releases",
     },

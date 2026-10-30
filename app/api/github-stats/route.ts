@@ -6,6 +6,10 @@ function formatCount(num: number): string {
   if (num >= 1_000_000) {
     return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
   }
+  if (num >= 10_000) {
+    // 13k downloads to match GitHub release badges
+    return Math.round(num / 1_000) + "k";
+  }
   if (num >= 1_000) {
     return (num / 1_000).toFixed(1).replace(/\.0$/, "") + "k";
   }
@@ -15,15 +19,15 @@ function formatCount(num: number): string {
 const FALLBACKS: Record<string, { stars: number; downloads: number; starsFormatted: string; downloadsFormatted: string }> = {
   "aradhyas8/Alder": {
     stars: 143,
-    downloads: 2505,
+    downloads: 2641,
     starsFormatted: "143 stars",
-    downloadsFormatted: "2.5k downloads",
+    downloadsFormatted: "2.6k downloads",
   },
   "aradhyas8/Plume_Launcher": {
     stars: 288,
-    downloads: 7788,
+    downloads: 13281,
     starsFormatted: "288 stars",
-    downloadsFormatted: "7.8k downloads",
+    downloadsFormatted: "13k downloads",
   },
 };
 
@@ -42,7 +46,6 @@ export async function GET(request: Request) {
   }
 
   try {
-    // In dev: no-store for instant local testing. In prod: 30m revalidate (only ~4 calls/hr total across both repos)
     const fetchOptions: RequestInit =
       process.env.NODE_ENV === "development"
         ? { headers, cache: "no-store" }
@@ -66,18 +69,18 @@ export async function GET(request: Request) {
     if (releasesRes.ok) {
       const releasesData = await releasesRes.json();
       if (Array.isArray(releasesData)) {
-        let apkTotal = 0;
+        let total = 0;
         releasesData.forEach((rel) => {
           if (Array.isArray(rel.assets)) {
             rel.assets.forEach((asset: { name?: string; download_count?: number }) => {
-              if (asset.name?.endsWith(".apk") && typeof asset.download_count === "number") {
-                apkTotal += asset.download_count;
+              if (typeof asset.download_count === "number") {
+                total += asset.download_count;
               }
             });
           }
         });
-        if (apkTotal > 0) {
-          downloads = apkTotal;
+        if (total > 0) {
+          downloads = total;
         }
       }
     }
