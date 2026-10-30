@@ -193,6 +193,16 @@ a { color: inherit; text-decoration: none; }
 .hush-eq i:nth-child(3) { transform: scaleY(0.6); }
 .hush-eq i:nth-child(4) { transform: scaleY(0.35); }
 
+/* Alder: Custom Android TV client for Stremio */
+.stage-alder { background: #0d0e14; }
+.stage-alder img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 500ms var(--ease-out); }
+.work-card:hover .stage-alder img { transform: scale(1.03); }
+
+/* Plume: Minimal Android TV launcher */
+.stage-plume { background: #0b0c10; }
+.stage-plume img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 500ms var(--ease-out); }
+.work-card:hover .stage-plume img { transform: scale(1.03); }
+
 /* QueryIO: its preview card rebuilt as UI. The agent's query passes through QueryIO before it reaches Postgres. */
 .stage-qio { background: #0f1117; }
 .stage-qio img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }

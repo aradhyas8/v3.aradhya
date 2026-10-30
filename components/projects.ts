@@ -2,6 +2,18 @@
 export const projects: { year: string; name: string; status?: string; tools: string[]; links: { label: string; href: string }[] }[] = [
     {
         year: '2026',
+        name: 'Alder',
+        tools: ['Kotlin', 'Android TV', 'Stremio API'],
+        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/Alder' }],
+    },
+    {
+        year: '2026',
+        name: 'Plume',
+        tools: ['Kotlin', 'Android TV', 'Leanback'],
+        links: [{ label: 'GitHub', href: 'https://github.com/aradhyas8/Plume_Launcher' }],
+    },
+    {
+        year: '2026',
         name: 'Hushfield',
         tools: ['React Native', 'Expo', 'Audio DSP'],
         links: [
@@ -84,4 +96,4 @@ export const projects: { year: string; name: string; status?: string; tools: str
         tools: ['React', 'Bootstrap'],
         links: [{ label: 'v1.aradhya.dev', href: 'https://v1.aradhya.dev' }],
     },
-]
+];

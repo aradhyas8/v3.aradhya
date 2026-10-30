@@ -8,6 +8,18 @@ type Link = { label: string; href: string };
 // Every stage is finished at rest. CardMotion plays its story on scroll-in and hover (see .work-card in portfolio.css).
 const selected: { name: string; desc: string; links: Link[]; status?: string; stage: React.ReactNode }[] = [
   {
+    name: "Alder",
+    desc: "Custom Android TV client for Stremio with smart stream selection.",
+    links: [{ label: "GitHub", href: "https://github.com/aradhyas8/Alder" }],
+    stage: <AlderStage />,
+  },
+  {
+    name: "Plume",
+    desc: "Minimal, ad-free Android TV launcher with zero bloat.",
+    links: [{ label: "GitHub", href: "https://github.com/aradhyas8/Plume_Launcher" }],
+    stage: <PlumeStage />,
+  },
+  {
     name: "Hushfield",
     desc: "Ambient audio for sleep, focus and quiet.",
     links: [
@@ -28,23 +40,29 @@ const selected: { name: string; desc: string; links: Link[]; status?: string; st
     links: [{ label: "Try PageMind", href: "https://www.pagemind.app" }],
     stage: <PageMindStage />,
   },
-  {
-    name: "v2.aradhya",
-    desc: "The previous version of this site.",
-    links: [{ label: "Visit v2", href: "https://v2.aradhya.dev" }],
-    stage: <V2Stage />,
-  },
-  {
-    name: "v1.aradhya",
-    desc: "The first version of this site.",
-    links: [{ label: "Visit v1", href: "https://v1.aradhya.dev" }],
-    stage: <V1Stage />,
-  },
 ];
 
 const others = projects
   .filter((p) => !selected.some((s) => s.name === p.name))
   .sort((a, b) => Number(b.year) - Number(a.year));
+
+function AlderStage() {
+  return (
+    <div className="stage stage-alder">
+      {/* eslint-disable-next-line @next/next/no-img-element -- decorative cover inside an aria-hidden stage */}
+      <img src="/static/Images/alder-cover.svg" alt="" loading="lazy" />
+    </div>
+  );
+}
+
+function PlumeStage() {
+  return (
+    <div className="stage stage-plume">
+      {/* eslint-disable-next-line @next/next/no-img-element -- decorative cover inside an aria-hidden stage */}
+      <img src="/static/Images/plume-cover.svg" alt="" loading="lazy" />
+    </div>
+  );
+}
 
 function HushfieldStage() {
   return (
@@ -88,40 +106,6 @@ function PageMindStage() {
           <p className="pm-a"><span className="pm-stream">Socrates&apos; student, who founded the Academy.</span> <span className="pm-src">p. 2</span></p>
           <p className="pm-typing"><i /><i /><i /></p>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// The old site's first screen, rebuilt: name and nav on the left, the about card on the right.
-// On play the nav indicator steps through its sections, the old site's signature interaction.
-function V2Stage() {
-  return (
-    <div className="stage stage-v2">
-      <div className="v2-ui">
-        <div className="v2-bar"><i /><i /><i /><span>v2.aradhya.dev</span></div>
-        <div className="v2-page">
-          <div className="v2-left">
-            <p className="v2-name">Aradhya Singh</p>
-            <p className="v2-role">Software Developer</p>
-            <ul className="v2-nav"><li>About</li><li>Experience</li><li>Project</li></ul>
-          </div>
-          <p className="v2-card">Graduating from <b>York University</b> with a Bachelor of Science in Computer Science, my career has spanned roles such as a Software Engineer Intern at <b>Fibra Inc.</b> and a Quality Engineering Intern at <b>theScore</b> in Toronto.</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// The first site's intro, rebuilt in its navy and teal. On play the name types itself out, as it did on the real page.
-function V1Stage() {
-  return (
-    <div className="stage stage-v1">
-      <ul className="v1-nav"><li><b>01.</b> Home</li><li><b>02.</b> About</li><li><b>03.</b> Experience</li></ul>
-      <div className="v1-hero">
-        <p className="v1-hi">hi, I am <span className="v1-name">Aradhya.</span><span className="v1-caret" /></p>
-        <p className="v1-sub">I like to solve problems.</p>
-        <span className="v1-btn">Resume</span>
       </div>
     </div>
   );
